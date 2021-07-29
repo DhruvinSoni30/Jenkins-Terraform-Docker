@@ -45,6 +45,4 @@ variable "instancetype" {
   default = "t2.medium"
 }
 
-# Defining Indexer count 
-variable "instance_count" {}
 

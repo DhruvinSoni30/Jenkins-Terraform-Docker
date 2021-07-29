@@ -143,7 +143,7 @@ resource "aws_instance" "demoinstance1" {
   instance_type = "${var.instancetype}"
   
   # Count of instance
-  count= "${var.indexer_count}"
+  count= 1
   
   # SSH key that we have generated above for connection
   key_name = "${aws_key_pair.demokey.id}"
@@ -184,15 +184,14 @@ resource "aws_instance" "demoinstance1" {
   provisioner "remote-exec" {
     inline = [
       "sudo yum update -y",
-      "wget -O splunk-8.0.3-a6754d8441bf-Linux-x86_64.tgz 'https://www.splunk.com/bin/splunk/DownloadActivityServlet?architecture=x86_64&platform=linux&version=8.0.3&product=splunk&filename=splunk-8.0.3-a6754d8441bf-Linux-x86_64.tgz&wget=true'",
-      "tar -xzf splunk-8.0.3-a6754d8441bf-Linux-x86_64.tgz",
-      "cd /home/ec2-user/splunk/etc/system/local",
-      "echo -e '\n[diskUsage]\nminFreeSpace = 500' >> server.conf",
-      "cd /home/ec2-user/splunk/bin",
-      "./splunk start --accept-license --answer-yes --no-prompt --seed-passwd admin123",
-      "./splunk edit cluster-config -mode slave -master_uri https://${aws_instance.master.private_ip}:8089 -replication_port 4598 -secret admin -auth admin:admin123",
-      "./splunk enable listen 9997 -auth admin:admin123",
-      "./splunk restart"     
+      "sudo amazon-linux-extras install docker",
+      "sudo service docker start",
+      "sudo usermod -a -G docker ec2-user",
+      "sudo chkconfig docker on",
+      "sudo yum install -y git",
+      "sudo reboot",
+      "docker pull dhruvin30/dhsoniweb:latest",
+      "docker run -d -p 80:80 dhruvin30/dhsoniweb:latest"   
   ]
  }
 }
