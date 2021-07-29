@@ -189,6 +189,7 @@ resource "aws_instance" "demoinstance1" {
       "sudo usermod -a -G docker ec2-user",
       "sudo chkconfig docker on",
       "sudo yum install -y git",
+      "sudo chmod 666 /var/run/docker.sock",
       "docker login -u dhruvin30 -p Mittu@4530",
       "docker pull dhruvin30/dhsoniweb:latest",
       "docker run -d -p 80:80 dhruvin30/dhsoniweb:latest"   
