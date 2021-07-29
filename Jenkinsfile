@@ -23,7 +23,7 @@ pipeline {
             sh "export TF_VAR_aws_region='${env.aws_region}' && terraform plan" 
          }
       }
-         stage ('Terraform Apply - Create Instances and Configurig Clustering'){
+         stage ('Terraform Apply & Deploy Docker Image on Webserver'){
             steps {
             sh "export TF_VAR_aws_region='${env.aws_region}' && terraform apply -auto-approve"
         }
