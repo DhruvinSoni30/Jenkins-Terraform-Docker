@@ -20,12 +20,12 @@ pipeline {
        }
          stage ('Terraform Plan'){
             steps {
-            sh "export TF_VAR_aws_region='${env.aws_region}' && export TF_VAR_indexer_count='${env.indexer_count}' && terraform plan" 
+            sh "export TF_VAR_aws_region='${env.aws_region}' && terraform plan" 
          }
       }
          stage ('Terraform Apply - Create Instances and Configurig Clustering'){
             steps {
-            sh "export TF_VAR_aws_region='${env.aws_region}' && export TF_VAR_indexer_count='${env.indexer_count}' && terraform apply -auto-approve"
+            sh "export TF_VAR_aws_region='${env.aws_region}' && terraform apply -auto-approve"
         }
       }
     }
