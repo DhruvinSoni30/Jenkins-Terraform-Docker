@@ -191,7 +191,7 @@ resource "aws_instance" "demoinstance1" {
       "sudo yum install -y git",
       "sudo chmod 666 /var/run/docker.sock",
       "docker pull dhruvin30/dhsoniweb:v1",
-      "docker run -d -p 80:80 dhruvin30/dhsoniweb:latest"   
+      "docker run -d -p 80:80 dhruvin30/dhsoniweb:v1"   
   ]
  }
 }
